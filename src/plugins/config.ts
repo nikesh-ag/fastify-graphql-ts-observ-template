@@ -1,22 +1,19 @@
 import path from "path";
+import fp from "fastify-plugin";
+import { FastifyPluginAsync } from "fastify";
 import envSchema from "env-schema";
+import S from "fluent-json-schema";
 
 interface Env {
   NODE_ENV: string;
 }
 
-const schema = {
-  type: "object",
-  required: ["NODE_ENV"],
-  properties: {
-    NODE_ENV: {
-      type: "string",
-      default: "development",
-    },
-  },
-};
+const schema = S.object().prop(
+  "NODE_ENV",
+  S.string().enum(["development", "production", "testing"]).required()
+);
 
-export default function loadConfig(): void {
+const loadConfig: FastifyPluginAsync = fp(async (fastify, opts) => {
   const result = require("dotenv").config({
     path: path.join(
       __dirname,
@@ -32,4 +29,6 @@ export default function loadConfig(): void {
     data: result.parsed,
     schema,
   });
-}
+});
+
+export default loadConfig;

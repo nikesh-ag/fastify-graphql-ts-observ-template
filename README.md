@@ -14,10 +14,10 @@ npx jest --init
 npx ts-jest config:init
 ```
 
-Add env variable handling
+Env variable handling
 
 ```
-npm i env-schema
+npm i env-schema fluent-json-schema
 ```
 
-Add config.ts file in src/utils
+Add config.ts file in src/plugins
