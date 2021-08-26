@@ -7,14 +7,32 @@
     "test": "test"
   },
   "scripts": {
-    "test": "npm run build:ts && tsc -p test/tsconfig.test.json && cross-env TS_NODE_FILES=true tap --ts test/**/*.test.ts",
+    "dev-delete": "ts-node-dev --no-notify --respawn --transpile-only src/app",
+    "test-delete": "npm run build:ts && tsc -p test/tsconfig.test.json && cross-env TS_NODE_FILES=true tap --ts test/**/*.test.ts",
+    "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"fastify start --ignore-watch=.ts$ -w -l info -P dist/app.js\"",
+    "build": "npm -s run clean && npm -s run generate && tsc",
     "start": "npm run build:ts && fastify start -l info dist/app.js",
     "build:ts": "tsc",
-    "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"fastify start --ignore-watch=.ts$ -w -l info -P dist/app.js\""
+    "clean": "rm -rf dist",
+    "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
+    "generate:prisma": "prisma generate",
+    "generate:nexus": "ts-node --transpile-only src/schema",
+    "db:push": "prisma db push --preview-feature",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "migrate:reset": "prisma migrate reset",
+    "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "fastify",
+    "graphql",
+    "prisma",
+    "nexus",
+    "typescript",
+    "mercurius"
+  ],
+  "author": "Nikesh Agarwal",
+  "license": "MIT",
   "dependencies": {
     "fastify": "^3.0.0",
     "fastify-plugin": "^3.0.0",
@@ -24,12 +42,9 @@
   },
   "devDependencies": {
     "@types/node": "^15.0.0",
-    "@types/tap": "^15.0.0",
-    "ts-node": "^10.0.0",
-    "concurrently": "^6.0.0",
-    "cross-env": "^7.0.3",
+    "concurrently": "^6.2.1",
     "fastify-tsconfig": "^1.0.1",
-    "tap": "^15.0.9",
+    "ts-node": "^10.0.0",
     "typescript": "^4.2.4"
   }
 }
