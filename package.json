@@ -35,11 +35,12 @@
   "author": "Nikesh Agarwal",
   "license": "MIT",
   "dependencies": {
+    "env-schema": "^3.3.0",
     "fastify": "^3.0.0",
-    "fastify-plugin": "^3.0.0",
     "fastify-autoload": "^3.3.1",
-    "fastify-sensible": "^3.1.0",
-    "fastify-cli": "^2.13.0"
+    "fastify-cli": "^2.13.0",
+    "fastify-plugin": "^3.0.0",
+    "fastify-sensible": "^3.1.0"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
