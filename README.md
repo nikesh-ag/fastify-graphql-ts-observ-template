@@ -44,10 +44,11 @@ TODO: Setup a DB Server and connect it to Prisma in the `prisma/schema.prisma` f
 # Graphql Server
 
 ```
-npm i graphql mercurius mercurius-auth
+npm i graphql mercurius mercurius-auth nexus
 ```
 
 Create the mercurius server options object in `config/graphql-server-config`
+Create the schema in the `src/schema` folder and add it to the server config above
 Create the graphql server using mercurius in `graphql-server.ts` in src/plugins
 Create the src/graphql folder to define the schema and resolvers
 

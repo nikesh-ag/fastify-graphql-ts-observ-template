@@ -3,7 +3,7 @@ import { MercuriusOptions } from "mercurius";
 import { PrismaClient } from "@prisma/client";
 import { Metrics } from "../plugins/metrics";
 
-// import { schema } from "../schema";
+import { schema } from "../schema";
 
 export interface Context {
   prisma: PrismaClient;
@@ -17,7 +17,7 @@ export const graphqlServerConfig = (
 ): MercuriusOptions => {
   return {
     // String, String[] or schema definition. The graphql schema. The string will be parsed.
-    // schema,
+    schema,
 
     // string. Change default graphql /graphql route to another one.
     path: "/graphql",
