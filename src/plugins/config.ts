@@ -13,7 +13,7 @@ const schema = S.object().prop(
   S.string().enum(["development", "production", "testing"]).required()
 );
 
-const loadConfig: FastifyPluginAsync = fp(async (fastify, opts) => {
+export const loadConfig: () => void = () => {
   const result = require("dotenv").config({
     path: path.join(
       __dirname,
@@ -29,6 +29,10 @@ const loadConfig: FastifyPluginAsync = fp(async (fastify, opts) => {
     data: result.parsed,
     schema,
   });
+};
+
+const configPlugin: FastifyPluginAsync = fp(async (_fastify, _opts) => {
+  loadConfig();
 });
 
-export default loadConfig;
+export default configPlugin;
