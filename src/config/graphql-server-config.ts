@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest, FastifyInstance } from "fastify";
 import { MercuriusOptions } from "mercurius";
 import { PrismaClient } from "@prisma/client";
+import { Metrics } from "../plugins/metrics";
 
 // import { schema } from "../schema";
 
@@ -8,6 +9,7 @@ export interface Context {
   prisma: PrismaClient;
   request: FastifyRequest;
   reply: FastifyReply;
+  metrics: Metrics;
 }
 
 export const graphqlServerConfig = (
@@ -48,6 +50,7 @@ export const graphqlServerConfig = (
     context: (request: FastifyRequest, reply: FastifyReply): Context => {
       return {
         prisma: fastify.db,
+        metrics: fastify.metrics,
         request,
         reply,
       };
