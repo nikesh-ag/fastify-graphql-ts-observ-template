@@ -2,8 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 generator client {
@@ -18,7 +18,7 @@ model Post {
 
   updatedAt DateTime @updatedAt
 
-  title     String   @db.VarChar(255)
+  title     String   
 
   content   String?
 

@@ -48,9 +48,10 @@ npm i graphql mercurius mercurius-auth nexus
 ```
 
 Create the mercurius server options object in `config/graphql-server-config`
-Create the schema in the `src/schema` folder and add it to the server config above
+Create the schema file in the `src` folder and add it to the server config above
+Create the `src/graphql` folder to define the types and resolvers and add `index.ts` to it
 Create the graphql server using mercurius in `graphql-server.ts` in src/plugins
-Create the src/graphql folder to define the schema and resolvers
+Run `npm run generate` to generate the Prisma Client and the Nexus schema and types
 
 # Metrics (Prometheus)
 
@@ -105,3 +106,5 @@ Exporter
 
 Create the openTelemetry SDK provider in `config/tracing-config`
 Create the tracing plugin in `tracing.ts` in src/plugins
+
+# Logs

@@ -1,16 +1,8 @@
-import { FastifyReply, FastifyRequest, FastifyInstance } from "fastify";
+import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { MercuriusOptions } from "mercurius";
-import { PrismaClient } from "@prisma/client";
-import { Metrics } from "../plugins/metrics";
 
 import { schema } from "../schema";
-
-export interface Context {
-  prisma: PrismaClient;
-  request: FastifyRequest;
-  reply: FastifyReply;
-  metrics: Metrics;
-}
+import { Context } from "./context";
 
 export const graphqlServerConfig = (
   fastify: FastifyInstance

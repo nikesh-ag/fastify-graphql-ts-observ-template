@@ -17,7 +17,7 @@ export const PostQuery = extendType({
       type: Post,
       resolve(parent, args, context, info) {
         return [
-          { id: 1, title: "Post 1", body: "Post Body 1", published: false },
+          { id: "1", title: "Post 1", body: "Post Body 1", published: false },
         ];
       },
     });
