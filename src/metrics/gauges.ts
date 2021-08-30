@@ -17,10 +17,10 @@ export const createGauges = (fastify: FastifyInstance) => {
   const gaugeExample = new fastify.metrics.client.Gauge({
     name: "gauge_name",
     help: "gauge_help",
-    aggregator: undefined,
-    collect: undefined,
-    labelNames: undefined,
-    registers: undefined,
+    // aggregator: undefined,
+    // collect: undefined,
+    // labelNames: undefined,
+    // registers: undefined,
   });
 
   return {

@@ -14,9 +14,7 @@ import { SummariesObject, createSummaries } from "../metrics/summaries";
  */
 export default fp<PluginOptions>(async (fastify, _opts) => {
   const metricsPlugin = require("fastify-metrics");
-  fastify.register(metricsPlugin, metricsConfig);
-
-  fastify.metrics;
+  await fastify.register(metricsPlugin, metricsConfig);
 
   fastify.metrics = {
     ...fastify.metrics,

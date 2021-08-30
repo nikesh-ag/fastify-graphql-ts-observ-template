@@ -15,13 +15,13 @@ export interface HistogramsObject {
  */
 export const createHistograms = (fastify: FastifyInstance) => {
   const histogramExample = new fastify.metrics.client.Histogram({
-    name: "counter_name",
-    help: "counter_help",
-    aggregator: undefined,
-    collect: undefined,
-    labelNames: undefined,
-    registers: undefined,
-    buckets: undefined,
+    name: "histogram_name",
+    help: "histogram_help",
+    // aggregator: undefined,
+    // collect: undefined,
+    // labelNames: undefined,
+    // registers: undefined,
+    // buckets: undefined,
   });
 
   return {

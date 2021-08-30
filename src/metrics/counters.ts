@@ -17,10 +17,10 @@ export const createCounters = (fastify: FastifyInstance) => {
   const counterExample = new fastify.metrics.client.Counter({
     name: "counter_name",
     help: "counter_help",
-    aggregator: undefined,
-    collect: undefined,
-    labelNames: undefined,
-    registers: undefined,
+    // aggregator: undefined,
+    // collect: undefined,
+    // labelNames: undefined,
+    // registers: undefined,
   });
 
   return {

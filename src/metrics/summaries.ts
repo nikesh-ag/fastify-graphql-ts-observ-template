@@ -15,16 +15,16 @@ export interface SummariesObject {
  */
 export const createSummaries = (fastify: FastifyInstance) => {
   const summaryExample = new fastify.metrics.client.Summary({
-    name: "counter_name",
-    help: "counter_help",
-    aggregator: undefined,
-    collect: undefined,
-    labelNames: undefined,
-    registers: undefined,
-    ageBuckets: undefined,
-    compressCount: undefined,
-    maxAgeSeconds: undefined,
-    percentiles: undefined,
+    name: "summary_name",
+    help: "summary_help",
+    // aggregator: undefined,
+    // collect: undefined,
+    // labelNames: undefined,
+    // registers: undefined,
+    // ageBuckets: undefined,
+    // compressCount: undefined,
+    // maxAgeSeconds: undefined,
+    // percentiles: undefined,
   });
 
   return {
