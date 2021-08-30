@@ -28,6 +28,17 @@ npm i env-schema fluent-json-schema
 
 Add config.ts file in src/plugins
 
+# Basic Security
+
+```
+npm i fastify-cookie fastify-csrf fastify-cors fastify-helmet fastify-rate-limit
+```
+
+Create the csrf plugin `csrf.ts` in `src/plugin` folder
+Create the cors plugin `cors.ts` in `src/plugin` folder
+Create the helmet plugin `helmet.ts` in `src/plugin` folder
+Create the rate-limit plugin `rateLimit.ts` in `src/plugin` folder
+
 # DB (Prisma)
 
 ```
@@ -107,4 +118,4 @@ Exporter
 Create the openTelemetry SDK provider in `config/tracing-config`
 Create the tracing plugin in `tracing.ts` in src/plugins
 
-# Logs
+# TODO Logs
