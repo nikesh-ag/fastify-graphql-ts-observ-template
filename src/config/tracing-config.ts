@@ -12,52 +12,53 @@ import { GraphQLInstrumentation } from "@opentelemetry/instrumentation-graphql";
 
 import { ZipkinExporter } from "@opentelemetry/exporter-zipkin";
 
-import { loadConfig } from "../plugins/config";
+// import { loadConfig } from "../plugins/config";
+import { FastifyInstance } from "fastify";
 
-loadConfig();
+// loadConfig();
 
-const sdk = new NodeTracerProvider({
-  resource: new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]:
-      process.env.SERVICE_NAME || "default_name",
-    [SemanticResourceAttributes.SERVICE_VERSION]:
-      process.env.SERVICE_VERSION || "default_version",
-  }),
-});
-
-registerInstrumentations({
-  instrumentations: [
-    new HttpInstrumentation({
-      requestHook: (span, req) => {
-        span.setAttribute("attr_key", "attr_value");
-      },
+export const createSdk = (fastify: FastifyInstance): void => {
+  const sdk = new NodeTracerProvider({
+    resource: new Resource({
+      [SemanticResourceAttributes.SERVICE_NAME]:
+        fastify.config.SERVICE_NAME || "default_name",
+      [SemanticResourceAttributes.SERVICE_VERSION]:
+        fastify.config.SERVICE_VERSION || "default_version",
     }),
-    new GraphQLInstrumentation({
-      depth: 3,
-    }),
-  ],
-});
+  });
 
-if (process.env.ZIPKIN_EXPORTER === "true") {
-  sdk.addSpanProcessor(
-    new SimpleSpanProcessor(
-      new ZipkinExporter({
-        serviceName: process.env.SERVICE_NAME,
-        url: process.env.ZIPKIN_URL,
-      })
-    )
-  );
-}
+  registerInstrumentations({
+    instrumentations: [
+      new HttpInstrumentation({
+        requestHook: (span, req) => {
+          span.setAttribute("attr_key", "attr_value");
+        },
+      }),
+      new GraphQLInstrumentation({
+        depth: 3,
+      }),
+    ],
+  });
 
-if (process.env.CONSOLE_EXPORTER === "true") {
-  sdk.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
-}
+  if (fastify.config.ZIPKIN_EXPORTER === "true") {
+    sdk.addSpanProcessor(
+      new SimpleSpanProcessor(
+        new ZipkinExporter({
+          serviceName: fastify.config.SERVICE_NAME,
+          url: fastify.config.ZIPKIN_URL,
+        })
+      )
+    );
+  }
 
-sdk.register();
+  if (fastify.config.CONSOLE_EXPORTER === "true") {
+    sdk.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
+  }
 
-//   sdk.register({
-//     contextManager: new AsyncHooksContextManager().enable(),
-//     propagator: new HttpTraceContextPropagator(),
-//   })
+  sdk.register();
 
-export default sdk;
+  //   sdk.register({
+  //     contextManager: new AsyncHooksContextManager().enable(),
+  //     propagator: new HttpTraceContextPropagator(),
+  //   })
+};

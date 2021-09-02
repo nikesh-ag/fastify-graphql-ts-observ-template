@@ -14,6 +14,13 @@ const rateLimitOptions: RateLimitOptions = {
   //   timeWindow: 60000,
 };
 
-export default fp<RateLimitOptions>(async (fastify, _opts) => {
-  fastify.register(require("fastify-rate-limit"), rateLimitOptions);
-});
+export default fp<RateLimitOptions>(
+  async (fastify, _opts) => {
+    fastify.register(require("fastify-rate-limit"), rateLimitOptions);
+  },
+  {
+    name: "rateLimitPlugin",
+    fastify: "3.x",
+    dependencies: [],
+  }
+);

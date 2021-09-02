@@ -7,6 +7,7 @@ fastify generate <> --lang=ts
 ```
 
 Remove the packages `tap @types/tap cross-env`
+Add the Fastify start options to the `.env` file
 
 # Testing
 
@@ -38,6 +39,17 @@ Create the csrf plugin `csrf.ts` in `src/plugin` folder
 Create the cors plugin `cors.ts` in `src/plugin` folder
 Create the helmet plugin `helmet.ts` in `src/plugin` folder
 Create the rate-limit plugin `rateLimit.ts` in `src/plugin` folder
+
+# Authentication
+
+```
+npm i @fastify/session ioredis connect-redis
+npm i -D @types/ioredis @types/connect-redis
+```
+
+Create the session plugin, `session.ts` in `src/plugin` folder
+
+TODO: Setup the Redis DB and its options in the plugin
 
 # DB (Prisma)
 

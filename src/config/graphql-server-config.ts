@@ -55,7 +55,7 @@ export const graphqlServerConfig = (
      * Only applies if onlyPersisted option is not true
      * If routes is false, this option does not have effects.
      */
-    graphiql: process.env.NODE_ENV === "development",
+    graphiql: fastify.config.NODE_ENV === "development",
 
     // String. Change the route prefix of the graphql endpoint if enabled.
     // prefix: undefined,

@@ -15,6 +15,13 @@ const corsOptions: FastifyCorsOptions = {
   // hideOptionsRoute: true,
 };
 
-export default fp<FastifyCorsOptions>(async (fastify, _opts) => {
-  fastify.register(require("fastify-cors"), corsOptions);
-});
+export default fp<FastifyCorsOptions>(
+  async (fastify, _opts) => {
+    fastify.register(require("fastify-cors"), corsOptions);
+  },
+  {
+    name: "corsPlugin",
+    fastify: "3.x",
+    dependencies: [],
+  }
+);

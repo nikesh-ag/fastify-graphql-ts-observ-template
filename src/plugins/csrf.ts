@@ -20,9 +20,12 @@ const csrfOptions: FastifyCsrfOptions = {
   //   getToken: undefined,
 };
 
-export default fp<FastifyCsrfOptions>(async (fastify, _opts) => {
-  fastify.register(require("fastify-csrf"), csrfOptions);
+export default fp<FastifyCsrfOptions>(
+  async (fastify, _opts) => {
+    await fastify.register(require("fastify-csrf"), csrfOptions);
 
-  // protect the routes or entire plugins
-  fastify.addHook("onRequest", fastify.csrfProtection);
-});
+    // protect the routes or entire plugins
+    fastify.addHook("onRequest", fastify.csrfProtection);
+  },
+  { name: "csrfPlugin", fastify: "3.x", dependencies: ["cookiePlugin"] }
+);

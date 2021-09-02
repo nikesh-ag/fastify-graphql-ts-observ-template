@@ -1,21 +1,26 @@
 import fp from "fastify-plugin";
 import { PrismaClient } from "@prisma/client";
 
-// The use of fastify-plugin is required to be able
-// to export the decorators to the outer scope
-export default fp(async (fastify, opts) => {
-  const db = new PrismaClient();
-  await db.$connect();
+const db = new PrismaClient();
 
-  fastify.decorate("db", db);
+export default fp(
+  async (fastify, _opts) => {
+    await db.$connect();
 
-  fastify.addHook("onClose", async (fastify) => {
-    fastify.log.info("disconnecting Prisma from DB");
-    await fastify.db.$disconnect();
-  });
-});
+    fastify.decorate("db", db);
 
-// When using .decorate you have to specify added properties for Typescript
+    fastify.addHook("onClose", async (fastify) => {
+      fastify.log.info("disconnecting Prisma from DB");
+      await fastify.db.$disconnect();
+    });
+  },
+  {
+    name: "dbPlugin",
+    fastify: "3.x",
+    dependencies: [],
+  }
+);
+
 declare module "fastify" {
   export interface FastifyInstance {
     db: PrismaClient;
